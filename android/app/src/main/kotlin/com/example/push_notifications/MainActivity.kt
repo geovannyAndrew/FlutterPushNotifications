@@ -1,4 +1,4 @@
-package com.example.push_notifications
+package com.gyros.flutter_push_notifications
 
 import android.os.Bundle
 
