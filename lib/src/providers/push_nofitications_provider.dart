@@ -1,8 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class PushNotificationProvider{
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  final _messagesStreamController = StreamController<String>.broadcast();
+  Stream<String> get messages => _messagesStreamController.stream;
 
   initNotifications(){
     _firebaseMessaging.requestNotificationPermissions();
@@ -16,6 +22,11 @@ class PushNotificationProvider{
       onMessage: (data){
         print('==== onMessage ====');
         print(data);
+        var argument = 'no-data';
+        if(Platform.isAndroid){
+          argument = data['data']['food'] ?? 'no-data';
+        }
+        _messagesStreamController.sink.add(argument);
       },
       onLaunch: (data){
         print('==== onLaunch ====');
@@ -29,5 +40,9 @@ class PushNotificationProvider{
         //print(notification);
       }
     );
+  }
+
+  dispose(){
+    _messagesStreamController?.close();
   }
 }
