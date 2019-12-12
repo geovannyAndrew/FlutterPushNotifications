@@ -36,8 +36,11 @@ class PushNotificationProvider{
       onResume: (data){
         print('==== onResume ====');
         print(data);   
-        //final notification = data['data']['food'];
-        //print(notification);
+        var argument = 'no-data';
+        if(Platform.isAndroid){
+          argument = data['data']['food'] ?? 'no-data';
+        }
+        _messagesStreamController.sink.add(argument);
       }
     );
   }

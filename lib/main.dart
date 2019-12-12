@@ -12,6 +12,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +23,8 @@ class _MyAppState extends State<MyApp> {
       //Navigator.pushNamed(context, 'message');
       print('===== Argument push ==========');
       print(argument);
+      navigatorKey.currentState.pushNamed('message', arguments: argument);
+      
     });
   }
 
@@ -28,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Push Local',
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       initialRoute: 'home',
       routes: {
