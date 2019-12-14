@@ -26,6 +26,9 @@ class PushNotificationProvider{
         if(Platform.isAndroid){
           argument = data['data']['food'] ?? 'no-data';
         }
+        else if(Platform.isIOS){
+          argument = data['food'] ?? 'no-data';
+        }
         _messagesStreamController.sink.add(argument);
       },
       onLaunch: (data){
@@ -39,6 +42,9 @@ class PushNotificationProvider{
         var argument = 'no-data';
         if(Platform.isAndroid){
           argument = data['data']['food'] ?? 'no-data';
+        }
+        else if(Platform.isIOS){
+          argument = data['food'] ?? 'no-data';
         }
         _messagesStreamController.sink.add(argument);
       }
